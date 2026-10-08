@@ -78,6 +78,12 @@ $("form").addEventListener("submit",async e=>{
  addMessage("user",text);input.value="";input.style.height="auto";await answer(text);
 });
 $("input").addEventListener("input",e=>{e.target.style.height="auto";e.target.style.height=Math.min(e.target.scrollHeight,160)+"px"});
+$("input").addEventListener("keydown",e=>{
+  if(e.key==="Enter" && !e.shiftKey){
+    e.preventDefault();
+    if(!$("send").disabled) $("form").requestSubmit();
+  }
+});
 $("newChat").addEventListener("click",()=>{messages=[];$("messages").innerHTML='<div id="welcome" class="max-w-3xl mx-auto px-5 py-16 text-center"><div class="mx-auto mb-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 grid place-items-center text-2xl">✦</div><h2 class="text-3xl font-bold mb-3">Nova conversa</h2><p class="text-gray-400">Digite sua primeira mensagem.</p></div>';});
 document.querySelectorAll(".mode").forEach(btn=>btn.addEventListener("click",()=>{mode=btn.dataset.mode;$("modeTitle").textContent=mode;document.querySelectorAll(".mode").forEach(b=>b.classList.remove("bg-orange-500/15","text-orange-300"));btn.classList.add("bg-orange-500/15","text-orange-300")}));
 document.querySelectorAll(".prompt").forEach(btn=>btn.addEventListener("click",()=>{$("input").value=btn.textContent;$("form").requestSubmit()}));
